@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=yes" />
+    <title>ГИС-сервис памятников</title>
+    <script src="./libs/dist/leaflet.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru-RU"></script>
+    <script src="./libs/Yandex.js"></script>
+    <link rel="stylesheet" href="./libs/dist/leaflet.css" />
+    <link rel="stylesheet" href="./static/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" href="icon.png" />
+  </head>
+  <body>
+    <div id="search-container">
+      <input type="text" id="search-input" placeholder="Поиск памятника..." />
+      <ul id="search-results"></ul>
+    </div>
+    <div id="map"></div>
+
+    <div id="memorial-sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title" id="memorial-title">Памятник</h2>
+        <button class="sidebar-close">&times;</button>
+      </div>
+      <img loading="lazy" id="memorial-photo" src="" alt="Фото памятника" />
+      <div id="memorial-desc"></div>
+    </div>
+
+    <script src="./data/shapes/projectJSON.js"></script>
+    <script src="./libs/main.js"></script>
+    <script>
+      // Кастомная иконка для переключателя слоев
+      document.addEventListener("DOMContentLoaded", function () {
+        const layersToggle = document.querySelector(
+          ".leaflet-control-layers-toggle"
+        );
+        if (layersToggle) {
+          layersToggle.innerHTML =
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+        }
+
+        // Анимация элементов списка слоев
+        const layerItems = document.querySelectorAll(
+          ".leaflet-control-layers-base label, .leaflet-control-layers-overlays label"
+        );
+        layerItems.forEach((item, index) => {
+          item.style.setProperty("--order", index);
+        });
+      });
+    </script>
+  </body>
+</html>
